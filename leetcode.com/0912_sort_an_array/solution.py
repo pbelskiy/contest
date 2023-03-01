@@ -29,3 +29,21 @@ class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
         self.qsort(nums, 0, len(nums) - 1)
         return nums
+
+
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+
+        def qs(a):
+            if len(a) <= 1:
+                return a
+
+            p = random.choice(a)
+            l = [n for n in a if n < p]
+            e = [n for n in a if n == p]
+            r = [n for n in a if n > p]
+
+            return qs(l) + e + qs(r)
+
+        return qs(nums)

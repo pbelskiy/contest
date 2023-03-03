@@ -20,6 +20,7 @@ class Solution:
 
         return j
 
+    # TLE (13/19)
     def qsort(self, a, l, r):
         if l < r:
             q = self.partition(a, l, r)
@@ -35,7 +36,31 @@ class Solution:
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
 
-        def qs(a):
+        # 1800 ms (19/19 TCs)
+        def mergesort(a):
+            if len(a) <= 1:
+                return a
+
+            mid = len(a) // 2
+            left = mergesort(a[:mid])
+            right = mergesort(a[mid:])
+
+            new = []
+            i, j = 0, 0
+            while i < len(left) and j < len(right):
+                if left[i] < right[j]:
+                    new.append(left[i])
+                    i += 1
+                else:
+                    new.append(right[j])
+                    j += 1
+
+            new += left[i:]
+            new += right[j:]
+            return new
+
+        # 1500 ms (19/19 TCs)
+        def quicksort(a):
             if len(a) <= 1:
                 return a
 
@@ -44,6 +69,6 @@ class Solution:
             e = [n for n in a if n == p]
             r = [n for n in a if n > p]
 
-            return qs(l) + e + qs(r)
+            return quicksort(l) + e + quicksort(r)
 
-        return qs(nums)
+        return quicksort(nums)

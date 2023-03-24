@@ -36,6 +36,25 @@ class Solution:
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
 
+        # 1300 ms (20/20)
+        def radix_sort(a):
+            base = 10
+            ranks = 5
+
+            for r in range(ranks):
+                buckets = [[] for _ in range(base)]
+                for n in a:
+                    idx = n // base**r % base
+                    buckets[idx].append(n)
+
+                a = [n for b in buckets for n in b]
+
+            for i, n in enumerate(a):
+                if n < 0:
+                    return a[i:] + a[:i]
+
+            return a
+
         # 1800 ms (19/19 TCs)
         def mergesort(a):
             if len(a) <= 1:

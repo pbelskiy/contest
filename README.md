@@ -2,4 +2,4 @@
 Sweet home for my solutions from different contests
 
 https://leetcode.com/pbelskiy/
-<img width="1030" alt="Screenshot 2023-02-12 at 00 32 07" src="https://user-images.githubusercontent.com/8102549/218282039-71e6c637-51c8-47c4-9a09-11ee9e5376b5.png">
+<img width="1466" alt="Screenshot 2023-03-26 at 17 35 45" src="https://user-images.githubusercontent.com/8102549/227782960-f54e8306-2de5-46f0-aa6b-7e342f0faa5a.png">

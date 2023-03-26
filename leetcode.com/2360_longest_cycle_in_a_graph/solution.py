@@ -1,30 +1,29 @@
 class Solution:
     def longestCycle(self, edges: List[int]) -> int:
 
-        def bfs(i, seen):
-            q, v = deque([(i, 0)]), {}
-            while q:
-                i, l = q.popleft()
+        def solve(i, seen):
+            l, v = 0, {}
+            while True:
                 if i in seen:
                     break
 
                 j = edges[i]
                 if j == -1:
-                    return -1, v
+                    break
 
-                if j not in v:
-                    v[j] = l
-                    q.append((j, l + 1))
-                    continue
+                if j in v:
+                    return l - v[j], v
 
-                return l - v[j], v
+                v[j] = l
+                i = j
+                l += 1
 
             return -1, v
 
         m = -1
         seen = set()
         for i in range(len(edges)):
-            r, v = bfs(i, seen)
+            r, v = solve(i, seen)
             seen |= set(v.keys())
             m = max(m, r)
 

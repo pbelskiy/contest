@@ -1,7 +1,7 @@
 def get_cheapest_cost(rootNode):
 
   def dfs(node, total):
-    if not rootNode:
+    if not node:
       return 0
 
     best = float('inf')

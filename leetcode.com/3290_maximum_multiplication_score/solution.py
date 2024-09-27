@@ -14,4 +14,5 @@ class Solution:
                 dfs(i, j + 1),                    # not pick
             )
 
+        gc.collect()  # without it I got MLE on contest because of huge cache and GC in Python
         return dfs(0, 0)

@@ -1,57 +1,30 @@
-from collections import deque
-
-
 class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        h, w = len(mat), len(mat[0])
 
-    def get_distance(self, m, _y, _x):
-        yl = len(m)
-        xl = len(m[0])
+        dis = [[-1]*w for _ in range(h)]
 
-        visited = set()
+        # collect start points
+        q = deque()
+        for y in range(h):
+            for x in range(w):
+                if mat[y][x] == 0:
+                    q.append((y, x, 0))
+                    dis[y][x] = 0
 
-        queue = deque()
-        queue.append((_y, _x, 0))
-        visited.add((_y, _x))
-        distance = 10**6
+        while q:
+            y, x, d = q.popleft()
 
-        # BFS
-        while len(queue) > 0:
-            y, x, d = queue.popleft()
-
-            if m[y][x] == 0:
-                return d
-
-            for dy, dx in ((-1, 0), (1, 0), (0, 1), (0, -1)):
-                ny = y + dy
-                nx = x + dx
-
-                if ny >= yl or ny < 0 or nx >= xl or nx < 0:
+            for dy, dx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+                if not (0 <= dy < h and 0 <= dx < w):
                     continue
 
-                if (ny, nx) in visited:
+                if dis[dy][dx] == 0:
                     continue
 
-                visited.add((ny, nx))
-                queue.append((ny, nx, d + 1))
+                if dis[dy][dx] == -1 or dis[dy][dx] > d + 1:
+                    q.append((dy, dx, d + 1))
+                    dis[dy][dx] = d + 1
 
-        return distance
+        return dis
 
-    def updateMatrix(self, m):
-        for y in range(len(m)):
-            for x in range(len(m[0])):
-                if m[y][x] != 0:
-                    m[y][x] = self.get_distance(m, y, x)
-
-        return m
-
-
-matrix = [
-    [0, 0, 0],
-    [0, 1, 0],
-    [1, 1, 1]
-]
-
-nm = Solution().updateMatrix(matrix)
-
-for r in nm:
-    print(r)

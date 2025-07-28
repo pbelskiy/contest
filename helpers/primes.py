@@ -15,9 +15,17 @@ def is_prime(n):
             return False
     return True
 
-def primes_up_to_length(length):
-    limit = 10 ** length - 1
-    return [n for n in range(2, limit + 1) if is_prime(n)]
 
-# Example: Get primes with up to 2 digits (i.e. primes ≤ 99)
-print(primes_up_to_length(2))
+def get_primes(count):
+    if count < 2:
+        return set()
+
+    is_prime = [True] * (count + 1)
+    is_prime[0] = is_prime[1] = False
+
+    p = 2
+    while (p * p <= count):
+        if is_prime[p]:
+            for i in range(p * p, count + 1, p):
+                is_prime[i] = False
+        p += 1

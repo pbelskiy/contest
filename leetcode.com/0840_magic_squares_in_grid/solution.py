@@ -1,9 +1,9 @@
 class Solution:
     def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
-
+        
         def is_magic(y, x):
             s = set()
-
+            
             # check rows
             for d in range(3):
                 row = grid[y+d][x:x+3]
@@ -19,11 +19,17 @@ class Solution:
             for d in range(3):
                 if grid[y][x+d] + grid[y+1][x+d] + grid[y+2][x+d] != 15:
                     return False
-
+            
             # check diagonal
             s = 0
             for d in range(3):
                 s += grid[y+d][x+d]
+            if s != 15:
+                return False
+
+            s = 0
+            for d in range(3):
+                s += grid[y+2-d][x+d]
             if s != 15:
                 return False
 
@@ -36,5 +42,7 @@ class Solution:
             for x in range(w - 2):
                 if is_magic(y, x):
                     t += 1
+                    print(y, x)
 
         return t
+
